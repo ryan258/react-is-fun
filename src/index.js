@@ -2,72 +2,40 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import "./index.css";
 
-let skiData = {
-  total: 50,
-  powder: 20,
-  backcountry: 10,
-  goal: 100,
-};
+// 1.) The data exists in a database
+let bookList = [
+  { title: "Hunger", author: "Roxane Gay", pages: 320 },
+  { title: "The Sun Also Rises", author: "Ernest Hemingway", pages: 260 },
+  { title: "White Teeth", author: "Zadie Smith", pages: 480 },
+  { title: "Cat's Cradle", author: "Kurt Vonnegut", pages: 304 },
+];
 
-/*class SkiDayCounter extends Component {
-  getPercent = (decimal) => `${decimal * 100}%`;
-  calcGoalProgress = (total, goal) => this.getPercent(total / goal);
-
-  render() {
-    const { total, powder, backcountry, goal } = this.props;
-    return (
-      <section>
-        <div>
-          <p>Total Days: {total}</p>
-        </div>
-        <div>
-          <p>Powder Days: {powder}</p>
-        </div>
-        <div>
-          <p>backcountry Days: {backcountry}</p>
-        </div>
-        <div>
-          <p>Goal: {goal}</p>
-        </div>
-        <div>
-          <p>Goal Progress: {this.calcGoalProgress(total, goal)}</p>
-        </div>
-      </section>
-    );
-  }
-}*/
-
-const getPercent = (decimal) => `${decimal * 100}%`;
-const calcGoalProgress = (total, goal) => getPercent(total / goal);
-
-const SkiDayCounter = ({ total, powder, backcountry, goal }) => {
+// 3.) Data is mapped into individual child components
+const Book = ({ title, author, pages }) => {
   return (
     <section>
-      <div>
-        <p>Total Days: {total}</p>
-      </div>
-      <div>
-        <p>Powder Days: {powder}</p>
-      </div>
-      <div>
-        <p>backcountry Days: {backcountry}</p>
-      </div>
-      <div>
-        <p>Goal: {goal}</p>
-      </div>
-      <div>
-        <p>Goal Progress: {calcGoalProgress(total, goal)}</p>
-      </div>
+      <h2>{title}</h2>
+      <p>by: {author}</p>
+      <p>Pages: {pages} pages</p>
     </section>
   );
 };
 
-render(
-  <SkiDayCounter
-    total={skiData.total}
-    powder={skiData.powder}
-    backcountry={skiData.backcountry}
-    goal={skiData.goal}
-  />,
-  document.getElementById("root")
-);
+// 2.) Data is pumped into a container component
+const Library = ({ books }) => {
+  return (
+    <div>
+      {/* <Book title="Steal This Book" author="Anonymous" pages={400} /> */}
+      {books.map((book, index) => (
+        <Book
+          key={index}
+          title={book.title}
+          author={book.author}
+          pages={book.pages}
+        />
+      ))}
+    </div>
+  );
+};
+
+render(<Library books={bookList} />, document.getElementById("root"));
