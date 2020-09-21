@@ -9,18 +9,25 @@ let bookList = [
   { title: "Cat's Cradle", author: "Kurt Vonnegut", pages: 304 },
 ];
 
-const Book = ({ title, author, pages }) => {
+// 3. Pass freeBookmark state to Book component
+const Book = ({ title, author, pages, freeBookmark }) => {
   return (
     <section>
       <h2>{title}</h2>
       <p>by: {author}</p>
       <p>Pages: {pages} pages</p>
+      {/* 4. Use freeBookmark state in child component */}
+      <p>Free Bookmark Today: {freeBookmark ? "Yes!" : "No..."}</p>
     </section>
   );
 };
 
 class Library extends Component {
-  state = { open: false };
+  // 1. Add a new piece of state
+  state = {
+    open: true,
+    freeBookmark: true,
+  };
 
   toggleOpenClosed = () => {
     this.setState((prevState) => ({
@@ -45,6 +52,8 @@ class Library extends Component {
             title={book.title}
             author={book.author}
             pages={book.pages}
+            // 2.) Pass freeBookmark state through to child component
+            freeBookmark={this.state.freeBookmark}
           />
         ))}
       </div>
