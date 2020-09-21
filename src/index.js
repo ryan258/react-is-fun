@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import "./index.css";
+import PropTypes from "prop-types";
 
+// let bookList = {};
 let bookList = [
   { title: "Hunger", author: "Roxane Gay", pages: 320 },
   { title: "The Sun Also Rises", author: "Ernest Hemingway", pages: 260 },
@@ -9,7 +11,12 @@ let bookList = [
   { title: "Cat's Cradle", author: "Kurt Vonnegut", pages: 304 },
 ];
 
-const Book = ({ title, author, pages, freeBookmark }) => {
+const Book = ({
+  title = "No title provided",
+  author = "No author provided",
+  pages = 0,
+  freeBookmark = false,
+}) => {
   return (
     <section>
       <h2>{title}</h2>
@@ -33,6 +40,16 @@ const NotHiring = () => (
 );
 
 class Library extends Component {
+  static defaultProps = {
+    books: [
+      {
+        title: "Needful Things",
+        author: "Stephen King",
+        pages: 690,
+      },
+    ],
+  };
+
   state = {
     open: true,
     freeBookmark: true,
@@ -98,5 +115,16 @@ class Library extends Component {
     );
   }
 }
+
+Library.propTypes = {
+  books: PropTypes.array,
+};
+
+Book.propTypes = {
+  title: PropTypes.string,
+  author: PropTypes.string,
+  pages: PropTypes.number,
+  freeBookmark: PropTypes.bool,
+};
 
 render(<Library books={bookList} />, document.getElementById("root"));
