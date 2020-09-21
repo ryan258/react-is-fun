@@ -19,27 +19,10 @@ const Book = ({ title, author, pages }) => {
   );
 };
 
-// 0.) It's a good idea to keep state in the root of the tree!
-// 1.) Refactor stateless component to a class component
 class Library extends Component {
-  // 6. Clean up constructor and use a one liner because we're using prevState
   state = { open: false };
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     open: true,
-  //   };
-  //   // 3. Bind the method to make 'this' accessible in the custom method
-  //   this.toggleOpenClosed = this.toggleOpenClosed.bind(this);
-  // }
 
-  // 2. Add a method to change state with setState
-  // 7. Bind this since we're not using the constructor, arrow functions will automatically bind this
   toggleOpenClosed = () => {
-    // this.setState({
-    //   open: !this.state.open,
-    // });
-    // (5. Use callback functions to track previous state because setState is asynchronous and this will ensure that no matter how long it takes, it will work as expected.)
     this.setState((prevState) => ({
       open: !prevState.open,
     }));
@@ -52,7 +35,7 @@ class Library extends Component {
     return (
       <div>
         <h1>The library is {this.state.open ? "Open!" : "Closed..."}</h1>
-        {/* 4. Use the custom method in a click handler */}
+
         <button onClick={this.toggleOpenClosed}>
           Click to {this.state.open ? "Close" : "Open"}
         </button>
