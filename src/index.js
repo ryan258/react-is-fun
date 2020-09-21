@@ -32,10 +32,7 @@ const NotHiring = () => (
   </div>
 );
 
-// 0. Lifecycle methods are only available when using Class components
 class Library extends Component {
-  // Constructor is called before the component is mounted. A good place to initialize local state and bind event handler methods.
-  // constructor() {}
   state = {
     open: true,
     freeBookmark: true,
@@ -44,18 +41,13 @@ class Library extends Component {
     loading: false,
   };
 
-  // 1.  Renders as soon as the component is mounted.
-  // 1a. A good place to fetch some data.
   componentDidMount() {
-    // console.log("The component is now mounted!");
-    // 1b. We'll load some data
     this.setState({ loading: true });
     fetch("https://hplussport.com/api/products/order/price/sort/asc/qty/1")
       .then((data) => data.json())
       .then((data) => this.setState({ data, loading: false }));
   }
 
-  // 2. Runs when anything changes in the component.
   componentDidUpdate() {
     console.log("The component just updated!");
   }
@@ -66,7 +58,6 @@ class Library extends Component {
     }));
   };
 
-  // Render is the only required lifecycle method.
   render() {
     console.log(this.state);
     const { books } = this.props;
